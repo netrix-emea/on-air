@@ -4,9 +4,6 @@
 #include <Adafruit_NeoPixel.h>
 #include "iot.h"
 
-#define LED_PIN   5
-#define LED_COUNT 8
-
 unsigned long previousMillis = 0;
 unsigned long interval = 30000;
 
@@ -67,8 +64,11 @@ void setup() {
   initIOT();
 }
 
+
+
 void loop() {
   client.loop();
+
   // if WiFi is down, try reconnecting every CHECK_WIFI_TIME seconds
   unsigned long currentMillis = millis();
   if ((WiFi.status() != WL_CONNECTED) && (currentMillis - previousMillis >= interval)) {
@@ -91,6 +91,7 @@ void onMqttMessage(String &topic, String &payload) {
 }
 
 void stateChange(int state) {
+
   char jsonBuffer[512];
 
   if (state == 1) {
@@ -114,4 +115,5 @@ void stateChange(int state) {
       strip.show();
     }
   }
+
 }
